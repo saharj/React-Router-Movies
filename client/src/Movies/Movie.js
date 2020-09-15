@@ -36,7 +36,9 @@ export default function Movie(props) {
   return (
     <div className="save-wrapper">
       <MovieCard movie={movie} />
-      <div className="save-button">Save</div>
+      <div className="save-button" onClick={() => props.addToList(id)}>
+        Save
+      </div>
     </div>
   );
 }
