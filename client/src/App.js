@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import axios from "axios";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
+import Movie from "./Movies/Movie";
 
 export default function App() {
   const [saved, setSaved] = useState([]); // Stretch: the ids of "saved" movies
@@ -21,7 +22,7 @@ export default function App() {
           console.error("Server Error", error);
         });
     };
-    if (!movieList) {
+    if (movieList.length === 0) {
       getMovies();
     }
   }, [movieList]);
@@ -39,10 +40,12 @@ export default function App() {
           ]
         }
       />
-
-      <Route exact path="/">
-        <MovieList movies={movieList} />
-      </Route>
+      <Switch>
+        <Route path="/movies/:id" component={Movie} />
+        <Route path="/">
+          <MovieList movies={movieList} />
+        </Route>
+      </Switch>
     </div>
   );
 }
